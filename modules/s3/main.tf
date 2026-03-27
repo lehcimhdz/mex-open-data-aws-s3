@@ -28,6 +28,17 @@ resource "aws_s3_bucket_public_access_block" "lake" {
   restrict_public_buckets = true
 }
 
+# ---------------------------------------------------------------------------
+# Server access logging — writes request logs to logs/ prefix in same bucket.
+# Enables auditing of who accessed which objects and when.
+# ---------------------------------------------------------------------------
+
+resource "aws_s3_bucket_logging" "lake" {
+  bucket        = aws_s3_bucket.lake.id
+  target_bucket = aws_s3_bucket.lake.id
+  target_prefix = "logs/"
+}
+
 resource "aws_s3_bucket_lifecycle_configuration" "lake" {
   bucket = aws_s3_bucket.lake.id
 

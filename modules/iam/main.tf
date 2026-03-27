@@ -22,20 +22,38 @@ resource "aws_iam_role_policy" "pipeline_s3" {
 
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Action = [
-        "s3:GetObject",
-        "s3:PutObject",
-        "s3:DeleteObject",
-        "s3:ListBucket",
-        "s3:GetBucketLocation"
-      ]
-      Resource = [
-        var.bucket_arn,
-        "${var.bucket_arn}/*"
-      ]
-    }]
+    Statement = [
+      {
+        # raw/ — full read/write (catalog + original files)
+        Sid    = "RawReadWrite"
+        Effect = "Allow"
+        Action = ["s3:GetObject", "s3:PutObject", "s3:ListBucket", "s3:GetBucketLocation"]
+        Resource = [
+          var.bucket_arn,
+          "${var.bucket_arn}/raw/*"
+        ]
+      },
+      {
+        # curated/ — write-only; pipeline deposits Parquet files, never deletes them
+        Sid      = "CuratedWriteOnly"
+        Effect   = "Allow"
+        Action   = ["s3:PutObject", "s3:GetObject"]
+        Resource = "${var.bucket_arn}/curated/*"
+      },
+      {
+        # Multipart upload support (required for _stream_to_s3)
+        Sid    = "MultipartUpload"
+        Effect = "Allow"
+        Action = [
+          "s3:CreateMultipartUpload",
+          "s3:UploadPart",
+          "s3:CompleteMultipartUpload",
+          "s3:AbortMultipartUpload",
+          "s3:ListMultipartUploadParts"
+        ]
+        Resource = "${var.bucket_arn}/*"
+      }
+    ]
   })
 }
 
@@ -46,9 +64,11 @@ resource "aws_iam_role_policy" "pipeline_glue" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
-      Effect   = "Allow"
+      Sid    = "GlueCrawlerTrigger"
+      Effect = "Allow"
+      # Restricted to crawlers in this project — prevents controlling other account crawlers
       Action   = ["glue:StartCrawler", "glue:GetCrawler", "glue:GetCrawlerMetrics"]
-      Resource = "*"
+      Resource = "arn:aws:glue:*:*:crawler/mex-open-data-*"
     }]
   })
 }
@@ -94,12 +114,10 @@ resource "aws_iam_role_policy" "glue_s3_read" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
+      Sid      = "GlueCuratedRead"
       Effect   = "Allow"
       Action   = ["s3:GetObject", "s3:ListBucket"]
-      Resource = [
-        var.bucket_arn,
-        "${var.bucket_arn}/curated/*"
-      ]
+      Resource = [var.bucket_arn, "${var.bucket_arn}/curated/*"]
     }]
   })
 }

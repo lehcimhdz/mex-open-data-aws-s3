@@ -6,6 +6,16 @@ terraform {
       version = "~> 5.0"
     }
   }
+
+  # Remote backend — stores state in S3 with DynamoDB locking.
+  # Before first `terraform init`, run bootstrap/ to create these resources:
+  #   cd bootstrap && terraform init && terraform apply
+  # Then copy backend.hcl.example → backend.hcl and fill in values.
+  # Init with: terraform init -backend-config=backend.hcl
+  backend "s3" {
+    # Values are supplied via backend.hcl (not committed to git).
+    # See backend.hcl.example for the required keys.
+  }
 }
 
 # NOTE: mx-central-1 (AWS Mexico Central) is a recently launched region.

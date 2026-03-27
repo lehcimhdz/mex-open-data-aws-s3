@@ -1,0 +1,29 @@
+# Terraform state — contains secrets and account IDs, never commit
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+crash.log
+crash.*.log
+
+# Plan files — may contain sensitive resource values
+*.tfplan
+*.plan
+
+# Var files with real values — use .example files only
+terraform.tfvars
+*.auto.tfvars
+envs/dev.tfvars
+envs/prod.tfvars
+
+# Backend config with real bucket/key/region values
+backend.hcl
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

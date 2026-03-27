@@ -1,0 +1,13 @@
+# Copy this file to backend.hcl and fill in the values printed by:
+#   cd bootstrap && terraform output
+#
+# Then initialise the main stack with:
+#   terraform init -backend-config=backend.hcl
+#
+# NEVER commit backend.hcl to git — it is listed in .gitignore.
+
+bucket         = "mex-open-data-tfstate-<your-account-id>"
+key            = "mex-open-data/terraform.tfstate"
+region         = "mx-central-1"
+encrypt        = true
+dynamodb_table = "mex-open-data-tf-lock"
