@@ -1,3 +1,10 @@
 aws_region         = "mx-central-1"
 environment        = "prod"
 bucket_name_prefix = "mex-open-data-lake"
+
+# Alert email — receives Glue failure and S3 error notifications.
+# The address must confirm the SNS subscription email before alerts are delivered.
+alert_email = "you@example.com"
+
+# Override crawler schedule if needed (default: Mon-Fri noon UTC)
+# glue_schedule = "cron(0 12 ? * MON-FRI *)"

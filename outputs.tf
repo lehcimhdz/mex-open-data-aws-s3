@@ -32,3 +32,13 @@ output "athena_workgroup_name" {
   description = "Athena workgroup name"
   value       = module.athena.workgroup_name
 }
+
+output "alerts_sns_topic_arn" {
+  description = "SNS topic ARN for pipeline alerts (Glue failures, S3 errors)"
+  value       = module.monitoring.sns_topic_arn
+}
+
+output "cloudtrail_name" {
+  description = "CloudTrail trail name for infrastructure audit"
+  value       = module.monitoring.cloudtrail_name
+}

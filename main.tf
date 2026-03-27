@@ -55,7 +55,17 @@ module "glue" {
   source        = "./modules/glue"
   bucket_name   = local.bucket_name
   glue_role_arn = module.iam.glue_role_arn
+  glue_schedule = var.glue_schedule
   tags          = local.common_tags
+}
+
+module "monitoring" {
+  source       = "./modules/monitoring"
+  bucket_name  = local.bucket_name
+  bucket_arn   = module.s3.bucket_arn
+  crawler_name = module.glue.crawler_name
+  alert_email  = var.alert_email
+  tags         = local.common_tags
 }
 
 module "athena" {

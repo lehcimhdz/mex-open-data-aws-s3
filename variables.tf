@@ -15,3 +15,14 @@ variable "bucket_name_prefix" {
   type        = string
   default     = "mex-open-data-lake"
 }
+
+variable "glue_schedule" {
+  description = "Cron schedule for the Glue crawler (AWS cron format). Default: Mon-Fri at noon UTC."
+  type        = string
+  default     = "cron(0 12 ? * MON-FRI *)"
+}
+
+variable "alert_email" {
+  description = "Email address for pipeline failure and S3 error notifications. Must confirm the SNS subscription."
+  type        = string
+}

@@ -28,11 +28,11 @@ Sin estos ítems el estado de Terraform puede corromperse o filtrarse.
 
 Para detectar fallos de infraestructura sin revisión manual.
 
-- [ ] Crear CloudWatch alarm para fallos del Glue crawler (`aws_cloudwatch_metric_alarm` con métrica `GlueMetrics.CrawlerFailed`)
-- [ ] Crear CloudWatch alarm para errores 4xx/5xx en S3 (`BucketSizeBytes` y `NumberOfObjects` para control de costos)
-- [ ] Añadir SNS topic y suscripción de email para recibir alertas de los alarms anteriores
-- [ ] Añadir `aws_cloudtrail` apuntando al bucket para auditoría completa de cambios de infraestructura
-- [ ] Añadir variable `glue_schedule` (default `"cron(0 12 ? * MON-FRI *)"`) para cambiar el horario sin tocar el módulo
+- [x] Crear CloudWatch alarm para fallos del Glue crawler (EventBridge rule en `modules/monitoring/main.tf` — más fiable que métricas CW para crawlers)
+- [x] Crear CloudWatch alarm para errores 4xx/5xx en S3 (`aws_s3_bucket_metric` + `aws_cloudwatch_metric_alarm`)
+- [x] Añadir SNS topic y suscripción de email para recibir alertas de los alarms anteriores
+- [x] Añadir `aws_cloudtrail` apuntando al bucket para auditoría completa de cambios de infraestructura
+- [x] Añadir variable `glue_schedule` (default `"cron(0 12 ? * MON-FRI *)"`) para cambiar el horario sin tocar el módulo
 
 ---
 

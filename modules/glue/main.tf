@@ -22,8 +22,7 @@ resource "aws_glue_crawler" "curated" {
     update_behavior = "UPDATE_IN_DATABASE"
   }
 
-  # Runs Mon-Fri at noon UTC — after the Airflow ingest_datasets DAG finishes
-  schedule = "cron(0 12 ? * MON-FRI *)"
+  schedule = var.glue_schedule
 
   configuration = jsonencode({
     Version = 1.0
