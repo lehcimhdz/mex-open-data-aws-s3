@@ -12,7 +12,7 @@ Hoja de ruta para llevar la infraestructura Terraform a un estado profesional, s
 
 ---
 
-## 🔴 Semana 1 — Seguridad y estabilidad
+## 🔴 1 — Seguridad y estabilidad
 
 Sin estos ítems el estado de Terraform puede corromperse o filtrarse.
 
@@ -24,7 +24,7 @@ Sin estos ítems el estado de Terraform puede corromperse o filtrarse.
 
 ---
 
-## 🟠 Semana 2 — Operabilidad y observabilidad
+## 🟠 2 — Operabilidad y observabilidad
 
 Para detectar fallos de infraestructura sin revisión manual.
 
@@ -36,23 +36,23 @@ Para detectar fallos de infraestructura sin revisión manual.
 
 ---
 
-## 🟡 Semana 3 — Calidad de código y CI/CD
+## 🟡 3 — Calidad de código y CI/CD
 
-- [ ] Crear `.github/workflows/ci.yml`:
+- [x] Crear `.github/workflows/ci.yml`:
   - `terraform fmt -check` en cada push/PR
   - `terraform validate` con provider inicializado
   - `tflint` con reglas de AWS
   - `terraform plan` en PR (salida como comentario automático)
-- [ ] Crear `.pre-commit-config.yaml` con: `terraform fmt`, `tflint`, `detect-secrets`
-- [ ] Crear `.tflint.hcl` habilitando el plugin de AWS con reglas de naming y deprecaciones
-- [ ] Añadir `validation {}` a las variables:
+- [x] Crear `.pre-commit-config.yaml` con: `terraform fmt`, `tflint`, `detect-secrets`
+- [x] Crear `.tflint.hcl` habilitando el plugin de AWS con reglas de naming y deprecaciones
+- [x] Añadir `validation {}` a las variables:
   - `environment`: solo `"dev"` o `"prod"`
   - `bucket_name_prefix`: máximo 30 caracteres, solo minúsculas y guiones
-- [ ] Crear `terraform.tfvars` por entorno: `envs/dev.tfvars`, `envs/prod.tfvars`
+- [x] Crear `terraform.tfvars` por entorno: `envs/dev.tfvars`, `envs/prod.tfvars`
 
 ---
 
-## 🟢 Semana 4 — Madurez y documentación
+## 🟢 4 — Madurez y documentación
 
 - [ ] Escribir README completo: arquitectura con diagrama ASCII, prerrequisitos, pasos de despliegue, descripción de outputs, troubleshooting
 - [ ] Añadir `README.md` por módulo (`modules/s3/README.md`, etc.) con descripción, inputs y outputs en formato tabla
@@ -65,8 +65,8 @@ Para detectar fallos de infraestructura sin revisión manual.
 ## Orden de implementación
 
 ```
-1. Seguridad (semana 1)       → .gitignore, remote backend, IAM restrictivo, S3 logging
-2. Observabilidad (semana 2)  → CloudWatch alarms, SNS, CloudTrail, variable de schedule
-3. CI/CD y calidad (semana 3) → workflows, pre-commit, tflint, validaciones, envs/
-4. Madurez (semana 4)         → README, módulos documentados, Makefile, tagging, tests
+1. Seguridad (1)       → .gitignore, remote backend, IAM restrictivo, S3 logging
+2. Observabilidad (2)  → CloudWatch alarms, SNS, CloudTrail, variable de schedule
+3. CI/CD y calidad (3) → workflows, pre-commit, tflint, validaciones, envs/
+4. Madurez (4)         → README, módulos documentados, Makefile, tagging, tests
 ```
