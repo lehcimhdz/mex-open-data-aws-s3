@@ -32,9 +32,12 @@ data "aws_caller_identity" "current" {}
 locals {
   bucket_name = "${var.bucket_name_prefix}-${data.aws_caller_identity.current.account_id}"
   common_tags = {
-    Project     = "mex-open-data"
-    Environment = var.environment
-    ManagedBy   = "terraform"
+    Project            = "mex-open-data"
+    Environment        = var.environment
+    ManagedBy          = "terraform"
+    Owner              = var.owner
+    CostCenter         = var.cost_center
+    DataClassification = "public"
   }
 }
 

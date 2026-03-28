@@ -26,6 +26,18 @@ variable "bucket_name_prefix" {
   }
 }
 
+variable "owner" {
+  description = "Team or individual responsible for this stack (used in resource tags)"
+  type        = string
+  default     = "mex-open-data-team"
+}
+
+variable "cost_center" {
+  description = "Cost center code for billing attribution (used in resource tags)"
+  type        = string
+  default     = "open-data"
+}
+
 variable "glue_schedule" {
   description = "Cron schedule for the Glue crawler (AWS cron format). Default: Mon-Fri at noon UTC."
   type        = string

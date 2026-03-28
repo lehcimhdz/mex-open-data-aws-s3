@@ -54,11 +54,11 @@ Para detectar fallos de infraestructura sin revisión manual.
 
 ## 🟢 4 — Madurez y documentación
 
-- [ ] Escribir README completo: arquitectura con diagrama ASCII, prerrequisitos, pasos de despliegue, descripción de outputs, troubleshooting
-- [ ] Añadir `README.md` por módulo (`modules/s3/README.md`, etc.) con descripción, inputs y outputs en formato tabla
-- [ ] Crear `Makefile` con: `make init`, `make plan`, `make apply`, `make destroy`, `make fmt`, `make validate`
-- [ ] Ampliar tagging strategy: añadir `Owner`, `CostCenter`, `DataClassification = "public"` a `local.common_tags`
-- [ ] Añadir `terraform test` básico (Terraform 1.6+) para validar que el módulo S3 crea bucket con cifrado habilitado
+- [x] Escribir README completo: arquitectura con diagrama ASCII, prerrequisitos, pasos de despliegue, descripción de outputs, troubleshooting
+- [x] Añadir `README.md` por módulo (`modules/s3/README.md`, etc.) con descripción, inputs y outputs en formato tabla
+- [x] Crear `Makefile` con: `make init`, `make plan`, `make apply`, `make destroy`, `make fmt`, `make validate`
+- [x] Ampliar tagging strategy: añadir `Owner`, `CostCenter`, `DataClassification = "public"` a `local.common_tags`
+- [x] Añadir `terraform test` básico (Terraform 1.7+ mock_provider) — `tests/s3_module.tftest.hcl` valida cifrado, bloqueo público y versionado
 
 ---
 
